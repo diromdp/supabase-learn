@@ -8,22 +8,20 @@ import { useParams } from "next/navigation";
 import SweetAlert2 from 'react-sweetalert2';
 import { useRouter } from 'next/navigation';
 import { useDebounce } from "@uidotdev/usehooks";
+import { SweetAlertProps } from "@/lib/types/alert.types";
 
 const FormReview = dynamic(() => import('@/components/layouts/formReview'));
 const ListReview = dynamic(() => import('@/components/layouts/listReview'));
 const Modal = dynamic(() => import('@/components/ui/modal'));
 
-interface ResultProps {
 
-}
-
-const Result: React.FC<ResultProps> = () => {
+const Result: React.FC= () => {
 
     const [dataDetail, setDataDetail] = useState<any>(null);
     const [showModal, setShowModal] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(true);
     const [hasMore, setHasMore] = useState<boolean>(true);
-    const [swal, setSwal] = useState<any>({});
+    const [swal, setSwal] = useState<SweetAlertProps>({});
     const [loadingScroll, setLoadingScroll] = useState<boolean>(false);
     const [scrollPosition, setScrollPosition] = useState<number>(0);
     const debouncedScrollPosition = useDebounce(scrollPosition, 200);

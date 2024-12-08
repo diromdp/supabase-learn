@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     return NextResponse.json({ 
       success: false, 
-      message: 'Error verifying captcha' 
+      message: error 
     }, { status: 500 });
   }
 }

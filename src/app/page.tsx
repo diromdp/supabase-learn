@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { createClient } from '@/lib/supabase/client';
 import SweetAlert2 from 'react-sweetalert2';
 import { ScrollArea } from "@/components/ui/scroll-area";
-
+import { SweetAlertProps } from "@/lib/types/alert.types";
 import CardPeople from "@/components/layouts/cardPeople";
 
 interface PersonIdentity {
@@ -20,10 +20,11 @@ interface PersonIdentity {
 	path_image?: string;
 }
 
+
 export default function Home() {
 	const [searchTerm, setSearchTerm] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
-	const [swal, setSwal] = useState<any>({});
+	const [swal, setSwal] = useState<SweetAlertProps>({});
 	const [results, setResults] = useState<PersonIdentity[]>([]);
 	const router = useRouter();
 	const supabase = createClient();
@@ -95,7 +96,7 @@ export default function Home() {
 			if (!response) return;
 
 			const { data, error } = response;
-			
+
 			if (error) {
 				console.error("Error fetching data:", error);
 			} else {
