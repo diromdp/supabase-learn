@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# People Credibility Index
 
-## Getting Started
+A micro-product that helps users verify and assess people's credibility through community reviews and ratings.
 
-First, run the development server:
+## Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+People Credibility Index is a platform where users can:
+- Check credibility scores of individuals
+- Leave verified reviews about their experiences
+- View detailed ratings and testimonials
+- Verify social media presence
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Credibility Score (0-100)
+- 80-100: Highly Credible
+- 50-80: Moderately Credible
+- 0-50: Not Credible
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Review System
+- Verified reviews with social media validation
+- Rating system (1-5 stars)
+- Detailed testimonials
+- Evidence links support (photos, videos, documents)
 
-## Learn More
+### Anti-Fraud Measures
+- IP-based review limitation
+- reCAPTCHA verification
+- Social media profile validation
+- Required evidence for reviews
 
-To learn more about Next.js, take a look at the following resources:
+### Social Media Integration
+Supports verification through:
+- Facebook
+- Twitter/X
+- Instagram
+- LinkedIn
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Technology Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Next.js
+- TypeScript
+- Supabase
+- Tailwind CSS
+- reCAPTCHA
 
-## Deploy on Vercel
+## Purpose
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This platform aims to:
+1. Help people make informed decisions about who to trust
+2. Reduce fraud and scams through community verification
+3. Build a reliable database of credibility assessments
+4. Promote accountability in online interactions
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Contributing
+
+We welcome contributions! Please read our contributing guidelines before submitting pull requests.
+
+## License
+
+[License Type] - see LICENSE.md for details
+
+
+## Contact
+
+For questions or suggestions, please contact us at [infohijra4@gmail.com](mailto:infohijra4@gmail.com).
+my portfolio: https://dirom-web.vercel.app/
