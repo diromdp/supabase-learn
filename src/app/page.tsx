@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from '@/lib/supabase/client';
 import SweetAlert2 from 'react-sweetalert2';
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { SweetAlertProps } from "@/lib/types/alert.types";
 import CardPeople from "@/components/layouts/cardPeople";
 
@@ -57,7 +56,7 @@ export default function Home() {
 
 	const handleSearch = async () => {
 		setResults([]);
-		console.log()
+		setSwal({});
 		const inputType = getInputType(searchTerm);
 		if (inputType === 'invalid') {
 			setSwal({
@@ -101,6 +100,15 @@ export default function Home() {
 				console.error("Error fetching data:", error);
 			} else {
 				setResults(data);
+				if(data.length === 0) {
+					setSwal({
+						show: true,
+						title: 'Informasi',
+						text: 'Tidak ada hasil yang ditemukan',
+						icon: 'error',
+						confirmButtonText: 'Tutup',
+					})
+				}
 			}
 		} else {
 			setResults([]);
@@ -108,34 +116,38 @@ export default function Home() {
 		setIsLoading(false);
 	};
 	return (
-		<main className="relative overflow-hidden">
-			<section className="bg-black text-white">
-				<div className="mx-auto max-w-screen-xl px-4 lg:flex min-h-screen mt-[200px] relative z-20">
-					<div className="mx-auto max-w-3xl text-center ">
-						<h1
-							className="bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-clip-text text-3xl font-extrabold text-transparent sm:text-5xl"
-						>
-							Cek Kredibilitas, Temukan Kebenaran
-						</h1>
+		<main className="relative flex flex-col justify-center items-center min-h-screen z-10">
+			<section className="bg-black text-white w-full flex items-center justify-center">
+				<div className="mx-auto max-w-screen-xl px-4 py-12">
+					<div className="mx-auto max-w-3xl text-center">
+						<div className="flex flex-col">
+							<h1
+								className="bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-clip-text text-3xl font-extrabold text-transparent sm:text-5xl"
+							>
+								Cek Kredibilitas, Temukan Kebenaran
+							</h1>
 
-						<p className="mx-auto mt-4 max-w-2xl sm:text-xl/relaxed">
-							Cari orang lebih mudah! Masukkan nomor telepon atau tautan media sosial untuk cek kredibilitas dan ulasan terpercaya
-						</p>
+							<p className="mx-auto mt-4 max-w-2xl sm:text-xl/relaxed">
+								Cari orang lebih mudah! Masukkan nomor telepon atau tautan media sosial untuk cek kredibilitas dan ulasan terpercaya
+							</p>
 
-						<div className="mt-8 flex flex-wrap justify-center gap-4">
-							<div className="relative w-full lg:mx-[120px]">
-								<PlaceholdersAndVanishInput
-									placeholders={placeholders}
-									onChange={(e) => setSearchTerm(e.target.value)}
-									onSubmit={handleSearch}
-								/>
+							<div className="mt-8 flex flex-wrap justify-center gap-4">
+								<div className="relative w-full lg:mx-[120px]">
+									<PlaceholdersAndVanishInput
+										placeholders={placeholders}
+										onChange={(e) => setSearchTerm(e.target.value)}
+										onSubmit={handleSearch}
+									/>
+								</div>
 							</div>
 						</div>
+
 						{isLoading && <div className="mt-4 text-center">Loading...</div>}
+						
 						{results.length > 0 && (
-							<ScrollArea className={`${results.length > 1 ? "min-h-96" : ""} mt-20 mb-20`}>
+							<div className="mt-20 mb-20 w-full">
 								<div className="text-left">Terdapat {results.length} hasil</div>
-								<div className="mt-4">
+								<div className="mt-4 grid gap-4">
 									{results.map((result) => (
 										<div key={result.id} onClick={() => router.push(`/${result.id}`)} className="cursor-pointer">
 											<CardPeople
@@ -153,7 +165,7 @@ export default function Home() {
 										</div>
 									))}
 								</div>
-							</ScrollArea>
+							</div>
 						)}
 					</div>
 				</div>

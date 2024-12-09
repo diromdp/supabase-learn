@@ -525,7 +525,7 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                         </Label>
 
                                         <Field
-                                            type="email"
+                                            type="text"
                                             id="url_link"
                                             name="link_url"
                                             placeholder="Masukkan link bukti (foto, video, atau dokumen)"
@@ -557,13 +557,15 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                 <Button
                                     disabled={isSubmitting || isIpLoading}
                                     onClick={() => {
-
                                         setSwal({
                                             show: true,
                                             title: 'Informasi',
                                             text: 'Pastikan ulasan Anda bisa dipertanggungjawabkan dengan benar, Kami berharap ulasan Anda jujur agar bisa membantu orang lain untuk mengetahui kredibilitas orang ini.',
-                                            willClose: () => {
-                                                submitForm();
+                                            showCancelButton: true,
+                                            confirmButtonText: 'Ya, Kirim',
+                                            cancelButtonText: 'Batal',
+                                            onConfirm: () => {
+                                                submitForm(); // This will trigger the form submission
                                             }
                                         });
                                     }}

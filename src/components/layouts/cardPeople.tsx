@@ -52,7 +52,7 @@ const CardPeople: React.FC<CardPeopleProps> = ({
                 <CardContent className={`pt-6 relative`}>
                     {
                         public_office && (
-                            <Badge className="mb-[8px] text-left absolute top-[16px] left-[24px]" variant="destructive">Pejabat atau Mantan Pejabat pemerintah</Badge>
+                            <Badge className="mb-[8px] text-left absolute top-[16px] left-[24px]" variant="destructive">{public_office}</Badge>
                         )
                     }
                     <div className="flex flex-col w-[70%] md:w-full">
@@ -99,7 +99,6 @@ const CardPeople: React.FC<CardPeopleProps> = ({
                             </div>
                         </div>
                     </div>
-
                     {
                         score !== 0 && (
                             <div onClick={() => setShowModal(true)} className={`absolute cursor-pointer top-[32px] right-[32px] p-[16px] rounded-xl flex flex-col justify-center items-center w-[68px] h-[68px] ${getScoreColor(score)}`}>

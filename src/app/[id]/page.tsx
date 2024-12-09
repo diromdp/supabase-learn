@@ -159,8 +159,8 @@ const Result: React.FC= () => {
 
     if (loading) {
         return (
-            <div className="mx-auto max-w-screen-xl px-4 h-screen lg:flex lg:items-center relative z-[10]">
-                <div className="mx-auto max-w-2xl">Loading...</div>
+            <div className="h-screen w-full flex items-center justify-center">
+                <div className="text-center">Loading...</div>
             </div>
         );
     }
@@ -179,6 +179,7 @@ const Result: React.FC= () => {
                                 instagram={dataDetail.instagram_url}
                                 linkedin={dataDetail.linkedin_url}
                                 score={dataDetail.score}
+                                public_office={dataDetail.public_official_goverment}
                                 setShowModal={setShowModal}
                             />
                         )

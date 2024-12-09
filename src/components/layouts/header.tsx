@@ -13,7 +13,7 @@ const Header: React.FC<HeaderProps> = () => {
 
     return (
         <>
-            <header className="z-[20] sticky top-0 w-full bg-black border-b border-transparent">
+            <header className="z-[99] sticky top-0 w-full bg-black border-b border-transparent">
                 <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 items-center justify-between">
                         <div className="md:flex md:items-center md:gap-12">

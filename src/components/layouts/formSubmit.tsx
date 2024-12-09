@@ -55,7 +55,6 @@ interface FormValues {
 
 const FormSubmit: React.FC = () => {
     const recaptchaRef = useRef<ReCAPTCHA>(null);
-    const router = useRouter();
     const [swal, setSwal] = useState<any>({});
 
     const initialValues: FormValues = {

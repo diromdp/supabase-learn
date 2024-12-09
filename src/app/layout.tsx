@@ -6,8 +6,29 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 export const metadata: Metadata = {
-  title: "NoteMonee",
-  description: "NoteMonee",
+  title: "PeopleTurst - Platform Penilaian Kepercayaan Online Indonesia",
+  description: "PeopleTurst adalah platform terpercaya untuk mengecek & menilai kredibilitas seseorang di Indonesia. Cari tahu review, rating, dan riwayat kepercayaan secara online dengan mudah dan aman.",
+  keywords: "cek kredibilitas, review kepercayaan, rating pengguna indonesia, sistem kepercayaan online, verifikasi identitas, review penilaian, platform kepercayaan indonesia",
+  openGraph: {
+    title: "PeopleTurst - Cek Kredibilitas & Rating Kepercayaan Online",
+    description: "Platform terpercaya untuk mengecek & menilai kredibilitas seseorang di Indonesia. Cari tahu review dan rating kepercayaan secara online.",
+    type: "website",
+    locale: "id_ID",
+    siteName: "PeopleTurst",
+  },
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "https://peoplestrust.co",
+  },
+  manifest: '/site.webmanifest',
 };
 
 const quicksand = Quicksand({ subsets: ['latin'] });
@@ -23,7 +44,7 @@ export default function RootLayout({ children }: RootLayoutProps)  {
         className={`${quicksand.className} antialiased`}
         suppressHydrationWarning
       >
-        <div className="mx-auto relative">
+        <div className="mx-auto relative min-h-screen">
           <Provider>{children}</Provider>
         </div>
       </body>

@@ -1,25 +1,25 @@
 "use client";
 import * as React from 'react';
-
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Star } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { FaSquareFacebook, FaSquareInstagram, FaSquareXTwitter, FaLinkedin } from "react-icons/fa6";
 import Link from 'next/link';
 import NoReview from "@/components/layouts/noReview";
+import { FaExternalLinkAlt } from "react-icons/fa";
 
 
 interface Comment {
     id: number;
-    reviewer_name: string;     // Changed from author to name to match the required type
+    reviewer_name: string;
     title_job: string;
-    comment: string;  // Changed from content to message
+    comment: string;
     rating: number;
     created_at: string;
     facebook_url: string;
     twitter_url: string;
     instagram_url: string;
     linkedin_url: string;
+    link_url: string;
 }
 
 interface ListReviewProps {
@@ -54,7 +54,7 @@ const ListReview: React.FC<ListReviewProps> = ({ reviews }) => {
 
     return (
         <>
-            <ScrollArea className="lg:min-h-96 w-full">
+            <div className="w-full">
                 <div className="space-y-6">
                     {reviews && reviews.map((comment, index) => (
                         <div key={index} className="bg-gray-800 rounded-lg shadow-lg p-4 border border-gray-700">
@@ -76,6 +76,14 @@ const ListReview: React.FC<ListReviewProps> = ({ reviews }) => {
                             </div>
 
                             <p className="text-gray-300 mb-3">{comment.comment}</p>
+                            {
+                                comment.link_url && (
+                                    <Link href={`${comment.link_url}`} className="text-[12px] flex flex-row items-center gap-[4px] text-red-500" target="_blank">
+                                        <span className="text-[14px]">Tautan</span>
+                                        <FaExternalLinkAlt />
+                                    </Link>
+                                )
+                            }
                             {(comment.facebook_url || comment.twitter_url || comment.instagram_url || comment.linkedin_url) && (
                                 <div className="my-[16px] flex flex-row gap-[8px]">
                                     {
@@ -117,7 +125,7 @@ const ListReview: React.FC<ListReviewProps> = ({ reviews }) => {
                        reviews.length == 0 && <NoReview />
                     }
                 </div>
-            </ScrollArea>
+            </div>
         </>
     );
 }
