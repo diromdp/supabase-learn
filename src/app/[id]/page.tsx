@@ -9,6 +9,7 @@ import SweetAlert2 from 'react-sweetalert2';
 import { useRouter } from 'next/navigation';
 import { useDebounce } from "@uidotdev/usehooks";
 import { SweetAlertProps } from "@/lib/types/alert.types";
+import { Comment } from "@/lib/types/listReview.types";
 
 const FormReview = dynamic(() => import('@/components/layouts/formReview'));
 const ListReview = dynamic(() => import('@/components/layouts/listReview'));
@@ -25,9 +26,9 @@ const Result: React.FC= () => {
     const [loadingScroll, setLoadingScroll] = useState<boolean>(false);
     const [scrollPosition, setScrollPosition] = useState<number>(0);
     const debouncedScrollPosition = useDebounce(scrollPosition, 200);
+    const [reviews, setReviews] = useState<Comment[]>([]);
 
     const currentPageRef = useRef<number>(1);
-    const reviewsRef = useRef<any[]>([]);
     const router = useRouter();
 
     const params = useParams();
@@ -97,19 +98,18 @@ const Result: React.FC= () => {
         }
         if (data) {
             const newReviews = data.filter(review =>
-                !reviewsRef.current.some(existingReview => existingReview.id === review.id)
+                !reviews.some(existingReview => existingReview.id === review.id)
             );
-            reviewsRef.current = [...reviewsRef.current, ...newReviews];
-            if (count !== null && reviewsRef.current.length >= count) {
+            setReviews([...reviews, ...newReviews]);
+            if (count !== null && reviews.length >= count) {
                 setHasMore(false); // No more data to fetch
             }
         }
         setLoadingScroll(false);
     }
 
-    const handleReviewsUpdate = (newReview: any) => {
-        reviewsRef.current = [...reviewsRef.current, newReview];
-        console.log(reviewsRef.current);
+    const handleReviewsUpdate = (newReview: Comment) => {
+        setReviews([...reviews, newReview]);
     };
 
     useEffect(() => {
@@ -179,8 +179,9 @@ const Result: React.FC= () => {
                                 instagram={dataDetail.instagram_url}
                                 linkedin={dataDetail.linkedin_url}
                                 score={dataDetail.score}
-                                public_office={dataDetail.public_official_goverment}
-                                setShowModal={setShowModal}
+                                path_image={dataDetail.path_image}
+                                public_office={dataDetail.type}
+                                isDetail={true}
                             />
                         )
                     }
@@ -188,9 +189,9 @@ const Result: React.FC= () => {
                         <FormReview id={idUser} onReviewsUpdate={handleReviewsUpdate} onSubmitComponent={handleFormSubmit} setSwal={setSwal} />
                     </div>
                     <div className="mt-[32px]">
-                        <h2 className="mb-[16px] font-semibold text-3xl">Apa kata orang?</h2>
+                        <h2 className="mb-[16px] font-semibold text-3xl">What do people say?</h2>
                         {
-                            reviewsRef.current && <ListReview reviews={reviewsRef.current} />
+                            reviews && <ListReview reviews={reviews} />
                         }
                     </div>
                     {loadingScroll && <div className="text-center text-[#fafafa] font-semibold text-[16px] my-4">Loading more reviews...</div>}
@@ -201,15 +202,15 @@ const Result: React.FC= () => {
                     <div className="flex-col flex justify-center items-start gap-[16px]">
                         <div className="flex flex-row gap-[8px] items-center">
                             <div className="w-[32px] h-[32px] rounded-full bg-green-500 block"></div>
-                            <span className="text-[18px] font-normal">Index Score 80 - 100 point: <span className="font-semibold">Sangat Kredibel</span></span>
+                            <span className="text-[18px] font-normal w-full">Index Score 80 - 100 point: <span className="font-semibold">Sangat Kredibel</span></span>
                         </div>
                         <div className="flex flex-row gap-[8px] items-center">
                             <div className="w-[32px] h-[32px] rounded-full bg-orange-500 block"></div>
-                            <span className="text-[18px] font-normal">Index Score 50 - 80 point: <span className="font-semibold">Cukup Kredibel</span></span>
+                            <span className="text-[18px] font-normal w-full">Index Score 50 - 80 point: <span className="font-semibold">Cukup Kredibel</span></span>
                         </div>
                         <div className="flex flex-row gap-[8px] items-center">
                             <div className="w-[32px] h-[32px] rounded-full bg-red-500 block"></div>
-                            <span className="text-[18px] font-normal">Index Score 0 - 50 point: <span className="font-semibold">Tidak Kredibel</span></span>
+                            <span className="text-[18px] font-normal w-full">Index Score 0 - 50 point: <span className="font-semibold">Tidak Kredibel</span></span>
                         </div>
                     </div>
                 </div>

@@ -20,37 +20,37 @@ import RatingStars from '@/components/ui/rating';
 
 const validationSchema = Yup.object().shape({
     reviewer_name: Yup.string()
-        .required('Nama lengkap wajib diisi')
-        .min(3, 'Nama minimal 3 karakter'),
+        .required('Full name is required')
+        .min(3, 'Name must be at least 3 characters'),
     title_job: Yup.string()
-        .required('Judul pekerjaan wajib diisi')
-        .min(3, 'Judul pekerjaan minimal 3 karakter'),
+        .required('Title Work is required')
+        .min(3, 'Title Work must be at least 3 characters'),
     facebook_url: Yup.string()
         .trim()
-        .matches(/^(https?:\/\/)?(www\.)?facebook.com\/[A-Za-z0-9._-]+$/, 'URL Facebook tidak valid')
+        .matches(/^(https?:\/\/)?(www\.)?facebook.com\/[A-Za-z0-9._-]+\/?$/, 'Facebook url not valid')
         .nullable(),
     instagram_url: Yup.string()
         .trim()
-        .matches(/^(https?:\/\/)?(www\.)?instagram.com\/[A-Za-z0-9._-]+$/, 'URL Instagram tidak valid')
+        .matches(/^(https?:\/\/)?(www\.)?instagram.com\/[A-Za-z0-9._-]+\/?$/, 'Instagram url not valid')
         .nullable(),
     twitter_url: Yup.string()
         .trim()
-        .matches(/^(https?:\/\/)?(www\.)?x.com\/[A-Za-z0-9._-]+$/, 'URL Twitter tidak valid')
+        .matches(/^(https?:\/\/)?(www\.)?x.com\/[A-Za-z0-9._-]+\/?$/, 'Twitter url not valid')
         .nullable(),
     linkedin_url: Yup.string()
         .trim()
-        .matches(/^(https?:\/\/)?(www\.)?linkedin.com\/in\/[A-Za-z0-9._-]+$/, 'URL LinkedIn tidak valid')
+        .matches(/^(https?:\/\/)?(www\.)?linkedin.com\/(in\/[A-Za-z0-9_-]+|company\/[A-Za-z0-9_-]+)\/?$/, 'Linkedin url not valid')
         .nullable(),
     comment: Yup.string()
-        .required('Komentar wajib diisi')
-        .min(10, 'Komentar minimal 10 karakter'),
+        .required('Comment is required')
+        .min(10, 'Comment must be at least 10 characters'),
     link_url: Yup.string()
-        .url('URL tidak valid')
+        .url('Link must be a valid URL')
         .nullable(),
     captcha: Yup.string().nullable(),
 }).test(
     'at-least-one-social-url',
-    'Setidaknya satu URL media sosial harus diisi',
+    'At least one social media url is required',
     function (values) {
         const { facebook_url, instagram_url, twitter_url, linkedin_url } = values;
         const hasValidSocialUrl = [
@@ -112,7 +112,7 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
             }
         } catch (error) {
             console.error('Error fetching IP:', error);
-            toast.error('Gagal mendapatkan IP address. Silakan muat ulang halaman.', {
+            toast.error('Failed to retrieve IP address. Please reload the page.', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -148,7 +148,7 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
     const submitForm = async (values: FormValues, { setErrors, setSubmitting, setFieldValue }: any, resetForm: () => void) => {
         try {
             if (!ipAddress || isIpLoading) {
-                toast.error('Mohon tunggu sebentar, sedang memuat data IP...', {
+                toast.error('Please wait a moment, loading IP data...', {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -171,10 +171,10 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
 
             if (!hasValidSocialUrl) {
                 setErrors({
-                    facebook_url: 'Setidaknya satu URL media sosial harus diisi',
-                    instagram_url: 'Setidaknya satu URL media sosial harus diisi',
-                    twitter_url: 'Setidaknya satu URL media sosial harus diisi',
-                    linkedin_url: 'Setidaknya satu URL media sosial harus diisi',
+                    facebook_url: 'At least one social media URL must be provided',
+                    instagram_url: 'At least one social media URL must be provided',
+                    twitter_url: 'At least one social media URL must be provided',
+                    linkedin_url: 'At least one social media URL must be provided',
                 });
                 setSubmitting(false);
                 return;
@@ -195,7 +195,7 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
             const captchaResult = await captchaResponse.json();
 
             if (!captchaResult.success) {
-                throw new Error('Verifikasi captcha gagal');
+                throw new Error('Captcha verification failed');
             }
 
             const { data, error } = await supabase
@@ -224,7 +224,7 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                 onReviewsUpdate(data[0]); // Assuming data[0] is the new review
             }
 
-            toast.success('Review berhasil disimpan', {
+            toast.success('Review has been successfully saved', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -237,7 +237,7 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
 
             resetForm();
         } catch (error: any) {
-            toast.error(error.message || 'Terjadi kesalahan saat menyimpan data', {
+            toast.error(error.message || 'An error occurred while saving the data', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -257,7 +257,7 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
             setSubmitting(true);
 
             if (isIpLoading || !ipAddress) {
-                toast.error('Mohon tunggu sebentar, sedang memuat data...', {
+                toast.error('Please wait a moment, loading data...', {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -279,7 +279,7 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
 
             if (checkError) {
                 console.error('Error checking existing review:', checkError);
-                toast.error('Terjadi kesalahan, silakan coba lagi nanti', {
+                toast.error('An error occurred, please try again later', {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -295,7 +295,7 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
             }
 
             if (existingReview && existingReview.length > 0) {
-                toast.error('Anda sudah mengirimkan ulasan untuk orang ini sebelumnya.', {
+                toast.error('You have already submitted a review for this entity.', {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -315,7 +315,7 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
 
         } catch (error: any) {
             if (error.code !== 'PGRST116') { // Ignore "no rows returned" error
-                toast.error(error.message || 'Terjadi kesalahan saat menyimpan data', {
+                toast.error(error.message || 'An error occurred, please try again later', {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -342,8 +342,8 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                     <Form>
                         <Card>
                             <CardHeader>
-                                <CardTitle className="text-4xl text-left mb-[16px]">Berikan Ulasan Anda</CardTitle>
-                                <CardDescription>Bantu komunitas dengan membagikan pengalaman Anda. Berikan ulasan tentang kredibilitas orang ini berdasarkan interaksi Anda.</CardDescription>
+                                <CardTitle className="text-4xl text-left mb-[16px]">Leave Your Review</CardTitle>
+                                <CardDescription>Help the community by sharing your experience. Leave a review about the credibility of this person, company, artist, politician, or official based on your interactions.</CardDescription>
                             </CardHeader>
                             <CardContent>
                                 <div className="space-y-8">
@@ -357,13 +357,13 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                                 name="reviewer_name"
                                                 id="Name"
                                                 value={values.reviewer_name || ''}
-                                                placeholder="Masukkan nama lengkap"
+                                                placeholder="Enter full name"
                                                 className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
                                             />
                                             <span
                                                 className="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-gray-200"
                                             >
-                                                Nama Lengkap
+                                                Full Name
                                             </span>
                                         </Label>
                                         <ErrorMessage
@@ -382,13 +382,13 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                                 name="title_job"
                                                 id="title_job"
                                                 value={values.title_job || ''}
-                                                placeholder="Masukkan judul pekerjaan"
+                                                placeholder="Enter job title"
                                                 className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
                                             />
                                             <span
                                                 className="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-gray-200"
                                             >
-                                                Judul Pekerjaan
+                                                Job Title
                                             </span>
                                         </Label>
                                         <ErrorMessage
@@ -406,7 +406,7 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                                 type="text"
                                                 id="Facebook"
                                                 name="facebook_url"
-                                                placeholder="Masukkan link profil Facebook"
+                                                placeholder="Enter Facebook profile link"
                                                 value={values.facebook_url || ''}
                                                 className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
                                             />
@@ -414,7 +414,7 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                             <span
                                                 className="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-gray-200"
                                             >
-                                                URL Profil Facebook
+                                                Facebook Profile URL
                                             </span>
                                         </Label>
                                         <ErrorMessage
@@ -433,14 +433,14 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                                 id="Twitter"
                                                 name="twitter_url"
                                                 value={values.twitter_url || ''}
-                                                placeholder="Masukkan link profil X (Twitter)"
+                                                placeholder="Enter X (Twitter) profile link"
                                                 className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
                                             />
 
                                             <span
                                                 className="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-gray-200"
                                             >
-                                                URL Profil X (Twitter)
+                                                X (Twitter) Profile URL
                                             </span>
                                         </Label>
                                         <ErrorMessage
@@ -459,14 +459,14 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                                 id="Instagram"
                                                 name="instagram_url"
                                                 value={values.instagram_url || ''}
-                                                placeholder="Masukkan link profil Instagram"
+                                                placeholder="Enter Instagram profile link"
                                                 className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
                                             />
 
                                             <span
                                                 className="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-gray-200"
                                             >
-                                                URL Profil Instagram
+                                                Instagram Profile URL
                                             </span>
                                         </Label>
                                         <ErrorMessage
@@ -485,14 +485,14 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                                 id="Linkedin"
                                                 name="linkedin_url"
                                                 value={values.linkedin_url || ''}
-                                                placeholder="Masukkan link profil LinkedIn"
+                                                placeholder="Enter LinkedIn profile link"
                                                 className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
                                             />
 
                                             <span
                                                 className="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-gray-200"
                                             >
-                                                URL Profil LinkedIn
+                                                LinkedIn Profile URL
                                             </span>
                                         </Label>
                                         <ErrorMessage
@@ -503,7 +503,7 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                     </div>
                                     <div className="form-group">
                                         <Label htmlFor="OrderNotes" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
-                                            Komentar
+                                            Comment
                                         </Label>
                                         <Field
                                             as="textarea"
@@ -511,7 +511,7 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                             name="comment"
                                             className="mt-2 w-full rounded-lg border-gray-200 align-top shadow-sm px-[16px] py-[8px] sm:text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white"
                                             rows={4}
-                                            placeholder="Bagikan pengalaman Anda dengan orang ini"
+                                            placeholder="Share your experience with this person, company, artist, politician, or official."
                                         />
                                         <ErrorMessage
                                             name="comment"
@@ -521,14 +521,14 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                     </div>
                                     <div className="form-group">
                                         <Label htmlFor="url_link" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
-                                            Link Tautan
+                                            Link
                                         </Label>
 
                                         <Field
                                             type="text"
                                             id="url_link"
                                             name="link_url"
-                                            placeholder="Masukkan link bukti (foto, video, atau dokumen)"
+                                            placeholder="Enter proof link (photo, video, or document)"
                                             className="mt-1 w-full px-[16px] py-[8px] rounded-md border-gray-200 shadow-sm sm:text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white"
                                         />
                                         <ErrorMessage
@@ -556,21 +556,22 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                             <CardFooter className="gap-[16px] justify-end">
                                 <Button
                                     disabled={isSubmitting || isIpLoading}
-                                    onClick={() => {
+                                    onClick={(e) => {
+                                        e.preventDefault();
                                         setSwal({
                                             show: true,
-                                            title: 'Informasi',
-                                            text: 'Pastikan ulasan Anda bisa dipertanggungjawabkan dengan benar, Kami berharap ulasan Anda jujur agar bisa membantu orang lain untuk mengetahui kredibilitas orang ini.',
+                                            title: 'Information',
+                                            text: 'Make sure your review is accountable and accurate. We hope your review is honest to help others assess the credibility of this person, company, artist, politician, or official.',
                                             showCancelButton: true,
-                                            confirmButtonText: 'Ya, Kirim',
-                                            cancelButtonText: 'Batal',
+                                            confirmButtonText: 'Submit',
+                                            cancelButtonText: 'Cancel',
                                             onConfirm: () => {
                                                 submitForm(); // This will trigger the form submission
                                             }
                                         });
                                     }}
-                                    type="submit">
-                                    {isSubmitting ? 'Menyimpan...' : 'Simpan'}
+                                    type="button">
+                                    {isSubmitting ? 'Saving...' : 'Save'}
                                 </Button>
                             </CardFooter>
                         </Card>

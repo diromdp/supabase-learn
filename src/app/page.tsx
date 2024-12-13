@@ -15,7 +15,7 @@ interface PersonIdentity {
 	linkedin_url?: string;
 	instagram_url?: string;
 	twitter_url?: string;
-	public_official_goverment?: boolean;
+	type?: string;
 	path_image?: string;
 }
 
@@ -28,29 +28,30 @@ export default function Home() {
 	const router = useRouter();
 	const supabase = createClient();
 	const placeholders = [
-		"Cari orang lebih mudah",
-		"Masukkan nama lengkap",
-		"Masukkan nomor telepon atau nomor whatsapp",
-		"Masukan tautan media sosial",
-		"Contoh: https://www.facebook.com/username",
-		"Contoh: https://www.instagram.com/username",
-		"Contoh: https://www.x.com/username",
-		"Contoh: https://www.linkedin.com/id/username",
+		"Find entities more easily",
+		"Enter Name",
+		"Enter phone number or WhatsApp number",
+		"Enter social media link",
+		"Example: https://www.facebook.com/username",
+		"Example: https://www.instagram.com/username",
+		"Example: https://www.x.com/username",
+		"Example: https://www.linkedin.com/id/username",
 	];
-
 
 	const getInputType = (input: string): string => {
 		const phonePattern = /^(\+62|62|0)8[1-9][0-9]{6,9}$/;
-		const facebookPattern = /^(https?:\/\/)?(www\.)?facebook\.com\/[a-zA-Z0-9._-]+$/;
-		const instagramPattern = /^(https?:\/\/)?(www\.)?instagram\.com\/[a-zA-Z0-9._-]+$/;
-		const linkedinPattern = /^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9._-]+$/;
-		const fullNamePattern = /^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/; // New pattern for full names
+		const facebookPattern = /^(https?:\/\/)?(www\.)?facebook\.com\/[a-zA-Z0-9._-]+\/?$/;
+		const instagramPattern = /^(https?:\/\/)?(www\.)?instagram\.com\/[a-zA-Z0-9._-]+\/?$/;
+		const linkedinPattern = /^(https?:\/\/)?(www\.)?linkedin\.com\/in\/[a-zA-Z0-9._-]+\/?$/;
+		const twitterPattern = /^(https?:\/\/)?(www\.)?(twitter\.com|x\.com)\/[a-zA-Z0-9._-]+\/?$/;
+		const fullNamePattern = /^[a-zA-Z]+(?:\s[a-zA-Z]+)*$/;
 
 		if (phonePattern.test(input)) return 'phone';
 		if (facebookPattern.test(input)) return 'facebook';
 		if (instagramPattern.test(input)) return 'instagram';
 		if (linkedinPattern.test(input)) return 'linkedin';
 		if (fullNamePattern.test(input)) return 'full_name';
+		if (twitterPattern.test(input)) return 'twitter'
 		return 'invalid';
 	};
 
@@ -62,7 +63,7 @@ export default function Home() {
 			setSwal({
 				show: true,
 				title: 'Invalid Input',
-				text: 'Periksa kembali nomor telepon atau pola media sosial!',
+				text: 'Please double-check the phone number or social media pattern!',
 				willClose: () => {
 					setSearchTerm('');
 				}
@@ -89,6 +90,9 @@ export default function Home() {
 				case 'full_name':
 					query = query.ilike('full_name', `%${searchTerm}%`);
 					break;
+				case 'twitter':
+					query = query.ilike('twitter_url', `%${searchTerm}%`);
+					break;
 			}
 
 			const response = await query.eq('is_approved', true).limit(15);
@@ -103,10 +107,10 @@ export default function Home() {
 				if(data.length === 0) {
 					setSwal({
 						show: true,
-						title: 'Informasi',
-						text: 'Tidak ada hasil yang ditemukan',
+						title: 'Information',
+						text: 'No results found',
 						icon: 'error',
-						confirmButtonText: 'Tutup',
+						confirmButtonText: 'Close',
 					})
 				}
 			}
@@ -116,23 +120,23 @@ export default function Home() {
 		setIsLoading(false);
 	};
 	return (
-		<main className="relative flex flex-col justify-center items-center min-h-screen z-10">
+		<main className="relative flex flex-col justify-center items-center min-h-screen">
 			<section className="bg-black text-white w-full flex items-center justify-center">
 				<div className="mx-auto max-w-screen-xl px-4 py-12">
-					<div className="mx-auto max-w-3xl text-center">
+					<div className="mx-auto max-w-2xl text-center">
 						<div className="flex flex-col">
 							<h1
-								className="bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-clip-text text-3xl font-extrabold text-transparent sm:text-5xl"
+								className="bg-gradient-to-r max-w-xl mx-auto leading-[54px] from-green-300 via-blue-500 to-purple-600 bg-clip-text text-3xl font-extrabold text-transparent sm:text-5xl"
 							>
-								Cek Kredibilitas, Temukan Kebenaran
+								Check Credibility Discover the Truth
 							</h1>
 
-							<p className="mx-auto mt-4 max-w-2xl sm:text-xl/relaxed">
-								Cari orang lebih mudah! Masukkan nomor telepon atau tautan media sosial untuk cek kredibilitas dan ulasan terpercaya
+							<p className="mx-auto mt-4 w-full sm:text-xl/relaxed">
+								Easily find people, companies, brands, artists, or politicians! Enter a phone number or social media link to check credibility and reviews.
 							</p>
 
 							<div className="mt-8 flex flex-wrap justify-center gap-4">
-								<div className="relative w-full lg:mx-[120px]">
+								<div className="relative w-full">
 									<PlaceholdersAndVanishInput
 										placeholders={placeholders}
 										onChange={(e) => setSearchTerm(e.target.value)}
@@ -145,7 +149,7 @@ export default function Home() {
 						{isLoading && <div className="mt-4 text-center">Loading...</div>}
 						
 						{results.length > 0 && (
-							<div className="mt-20 mb-20 w-full">
+							<div className="mt-20 mb-20 w-full relative z-10">
 								<div className="text-left">Terdapat {results.length} hasil</div>
 								<div className="mt-4 grid gap-4">
 									{results.map((result) => (
@@ -158,7 +162,7 @@ export default function Home() {
 												twitter={result.twitter_url}
 												instagram={result.instagram_url}
 												linkedin={result.linkedin_url}
-												public_office={result.public_official_goverment}
+												public_office={result.type}
 												path_image={result.path_image}
 												isHome={true}
 											/>

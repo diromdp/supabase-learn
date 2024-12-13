@@ -15,35 +15,46 @@ import { createClient } from '@/lib/supabase/client';
 import { useRef } from 'react';
 import ReCAPTCHA from "react-google-recaptcha";
 import { ToastContainer, toast } from 'react-toastify';
-import { useRouter } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { Label } from "@radix-ui/react-label";
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
 
 const validationSchema = Yup.object().shape({
     full_name: Yup.string()
-        .required('Nama lengkap wajib diisi')
-        .min(3, 'Nama minimal 3 karakter'),
+        .required('Name is required')
+        .min(3, 'Name must be at least 3 characters'),
     phone_number: Yup.string()
-        .required('Nomor telepon wajib diisi')
+        .required('Phone number is required')
         .matches(/^(\+62|62|0)8[1-9][0-9]{6,9}$/, 'Format nomor telepon tidak valid'),
     facebook_url: Yup.string()
-        .matches(/^(https?:\/\/)?(www\.)?facebook.com\/[A-Za-z0-9._-]+$/, 'URL Facebook tidak valid')
+        .matches(/^(https?:\/\/)?(www\.)?facebook.com\/[A-Za-z0-9._-]+\/?$/, 'Facebook Url not valid')
         .nullable(),
     instagram_url: Yup.string()
-        .matches(/^(https?:\/\/)?(www\.)?instagram.com\/[A-Za-z0-9._-]+$/, 'URL Instfvagram tidak valid')
+        .matches(/^(https?:\/\/)?(www\.)?instagram.com\/[A-Za-z0-9._-]+\/?$/, 'Instagram Url not valid')
         .nullable(),
     twitter_url: Yup.string()
-        .matches(/^(https?:\/\/)?(www\.)?x.com\/[A-Za-z0-9._-]+$/, 'URL Twitter tidak valid')
+        .matches(/^(https?:\/\/)?(www\.)?x.com\/[A-Za-z0-9._-]+\/?$/, 'Twitter Url not valid')
         .nullable(),
     linkedin_url: Yup.string()
-        .matches(/^(https?:\/\/)?(www\.)?linkedin.com\/in\/[A-Za-z0-9._-]+$/, 'URL LinkedIn tidak valid')
+        .matches(/^(https?:\/\/)?(www\.)?linkedin.com\/(in\/[A-Za-z0-9_-]+|company\/[A-Za-z0-9_-]+)\/?$/, 'LinkedIn URL is not valid')
         .nullable(),
+    type: Yup.string().required('Type is required'),
+    path_image: Yup.string().nullable(),
     captcha: Yup.string().nullable(),
 });
 
 interface FormValues {
     id: number;
     full_name: string;
+    type?: string;
+    path_image?: string;
     phone_number: string;
     facebook_url: string | null;
     instagram_url: string | null;
@@ -60,6 +71,8 @@ const FormSubmit: React.FC = () => {
     const initialValues: FormValues = {
         id: 0,
         full_name: '',
+        type: '',
+        path_image: '',
         phone_number: '',
         facebook_url: '',
         instagram_url: '',
@@ -73,60 +86,62 @@ const FormSubmit: React.FC = () => {
         const supabase = createClient();
 
         setSwal({});
-    
+
         // Check full_name first
         let { data, error } = await supabase.from('person_identifications').select('id').eq('full_name', full_name);
         if (error) {
             console.error("Error checking full_name existence:", error);
-            return 'Terjadi kesalahan saat memeriksa data';
+            return 'An error occurred while checking the data';
         }
         if (data && data.length > 0) {
-            return 'Data sudah ada di database';
+            return 'The data already exists in the database';
         }
-    
+
         // Check phone_number next
         ({ data, error } = await supabase.from('person_identifications').select('id').eq('phone_number', phone_number));
         if (error) {
             console.error("Error checking phone_number existence:", error);
-            return 'Terjadi kesalahan saat memeriksa data';
+            return 'An error occurred while checking the data';
         }
         if (data && data.length > 0) {
-            return 'Data entitas sudah ada di database kami';
+            return 'This entity\'s data already exists in our database';
         }
 
         ({ data, error } = await supabase.from('person_identifications').select('id').eq('facebook_url', facebook_url));
         if (error) {
             console.error("Error checking Facebook existence:", error);
-            return 'Terjadi kesalahan saat memeriksa data';
+            return 'An error occurred while checking the data';
         }
         if (data && data.length > 0) {
-            console.log('Data entitas sudah ada di database kami');
-            return 'Data entitas sudah ada di database kami';
+            console.log('This entity\'s data already exists in our database');
+            return 'This entity\'s data already exists in our database';
         }
 
         ({ data, error } = await supabase.from('person_identifications').select('id').eq('linkedin_url', linkedin_url));
         if (error) {
             console.error("Error checking LinkedIn existence:", error);
-            return 'Terjadi kesalahan saat memeriksa data';
+            return 'An error occurred while checking the data';
         }
         if (data && data.length > 0) {
-            return 'Data entitas sudah ada di database kami';
+            return 'This entity\'s data already exists in our database';
         }
+
         ({ data, error } = await supabase.from('person_identifications').select('id').eq('instagram_url', instagram_url));
         if (error) {
             console.error("Error checking Instagram existence:", error);
-            return 'Terjadi kesalahan saat memeriksa data';
+            return 'An error occurred while checking the data';
         }
         if (data && data.length > 0) {
-            return 'Data entitas sudah ada di database kami';
+            return 'This entity\'s data already exists in our database';
         }
+
         ({ data, error } = await supabase.from('person_identifications').select('id').eq('twitter_url', twitter_url));
         if (error) {
             console.error("Error checking Twitter existence:", error);
-            return 'Terjadi kesalahan saat memeriksa data';
+            return 'An error occurred while checking the data';
         }
         if (data && data.length > 0) {
-            return 'Data entitas sudah ada di database kami';
+            return 'This entity\'s data already exists in our database';
         }
 
         return null;
@@ -146,10 +161,10 @@ const FormSubmit: React.FC = () => {
 
             if (!hasValidSocialUrl) {
                 setErrors({
-                    facebook_url: 'Setidaknya satu URL media sosial harus diisi',
-                    instagram_url: 'Setidaknya satu URL media sosial harus diisi',
-                    twitter_url: 'Setidaknya satu URL media sosial harus diisi',
-                    linkedin_url: 'Setidaknya satu URL media sosial harus diisi',
+                    facebook_url: 'At least one social media URL must be provided',
+                    instagram_url: 'At least one social media URL must be provided',
+                    twitter_url: 'At least one social media URL must be provided',
+                    linkedin_url: 'At least one social media URL must be provided',
                 });
                 setSubmitting(false);
                 return;
@@ -186,7 +201,9 @@ const FormSubmit: React.FC = () => {
                 .from('person_identifications')
                 .insert([{
                     full_name: values.full_name,
+                    type: values.type,
                     phone_number: values.phone_number,
+                    path_image: values.path_image,
                     facebook_url: values.facebook_url || null,
                     instagram_url: values.instagram_url || null,
                     twitter_url: values.twitter_url || null,
@@ -199,7 +216,7 @@ const FormSubmit: React.FC = () => {
 
             if (data && data.length > 0) {
                 const id = data[0].id;
-                toast.success('Data berhasil disimpan, menunggu approval dari kami', {
+                toast.success('Data has been successfully saved, awaiting approval from us', {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -210,10 +227,10 @@ const FormSubmit: React.FC = () => {
                     theme: "light",
                 });
             }
-          
+
             resetForm();
         } catch (error: any) {
-            toast.error(error.message || 'Terjadi kesalahan saat menyimpan data', {
+            toast.error(error.message || 'An error occurred while saving the data', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -230,17 +247,17 @@ const FormSubmit: React.FC = () => {
 
     return (
         <>
-            <Card>
+            <Card className="my-[88px]">
                 <CardHeader>
-                    <CardTitle className="text-4xl text-left mb-[16px]">Form Identifikasi</CardTitle>
-                    <CardDescription>Masukkan informasi berikut untuk membantu kami mengidentifikasi seseorang atau badan usaha atau brand. Pastikan data yang dimasukkan akurat agar hasilnya tepat.</CardDescription>
+                    <CardTitle className="text-4xl text-left mb-[16px]">Identification Form</CardTitle>
+                    <CardDescription>Enter the following information to help us identify an individual, business, or brand. Please ensure the data entered is accurate for precise results.</CardDescription>
                 </CardHeader>
                 <Formik
                     initialValues={initialValues}
                     validationSchema={validationSchema}
                     onSubmit={handleSubmit}
                 >
-                    {({ isSubmitting, submitForm, values }) => (
+                    {({ isSubmitting, submitForm, values, setFieldValue }) => (
                         <Form >
                             <CardContent>
                                 <div className="space-y-8">
@@ -254,14 +271,14 @@ const FormSubmit: React.FC = () => {
                                                 id="full-name"
                                                 name="full_name"
                                                 value={values.full_name || ''}
-                                                placeholder="Masukkan nama lengkap"
+                                                placeholder="Enter name"
                                                 className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
                                             />
 
                                             <span
                                                 className="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-gray-200"
                                             >
-                                                Nama Lengkap
+                                                Name
                                             </span>
                                         </Label>
                                         <ErrorMessage
@@ -280,14 +297,14 @@ const FormSubmit: React.FC = () => {
                                                 id="phone-number"
                                                 name="phone_number"
                                                 value={values.phone_number || ''}
-                                                placeholder="Masukkan nomor telepon"
+                                                placeholder="Enter phone number"
                                                 className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
                                             />
 
                                             <span
                                                 className="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-gray-200"
                                             >
-                                                Nomor Telepon / Nomor Whatsapp
+                                                Phone Number / WhatsApp Number
                                             </span>
                                         </Label>
                                         <ErrorMessage
@@ -306,14 +323,14 @@ const FormSubmit: React.FC = () => {
                                                 id="facebook-url"
                                                 name="facebook_url"
                                                 value={values.facebook_url || ''}
-                                                placeholder="Masukkan link profil Facebook"
+                                                placeholder="Enter Facebook profile link"
                                                 className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
                                             />
 
                                             <span
                                                 className="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-gray-200"
                                             >
-                                                URL Profil Facebook
+                                                Facebook Profile URL
                                             </span>
                                         </Label>
                                         <ErrorMessage
@@ -332,14 +349,14 @@ const FormSubmit: React.FC = () => {
                                                 id="instagram-url"
                                                 name="instagram_url"
                                                 value={values.instagram_url || ''}
-                                                placeholder="Masukkan link profil Instagram"
+                                                placeholder="Enter Instagram profile link"
                                                 className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
                                             />
 
                                             <span
                                                 className="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-gray-200"
                                             >
-                                                URL Profil Instagram
+                                                Instagram Profile URL
                                             </span>
                                         </Label>
                                         <ErrorMessage
@@ -358,14 +375,14 @@ const FormSubmit: React.FC = () => {
                                                 id="twitter-url"
                                                 name="twitter_url"
                                                 value={values.twitter_url || ''}
-                                                placeholder="Masukkan link profil X (Twitter)"
+                                                placeholder="Enter X (Twitter) profile link"
                                                 className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
                                             />
 
                                             <span
                                                 className="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-gray-200"
                                             >
-                                                URL Profil X (Twitter)
+                                                X (Twitter) Profile URL
                                             </span>
                                         </Label>
                                         <ErrorMessage
@@ -384,14 +401,14 @@ const FormSubmit: React.FC = () => {
                                                 id="linkedin-url"
                                                 name="linkedin_url"
                                                 value={values.linkedin_url || ''}
-                                                placeholder="Masukkan link profil LinkedIn"
+                                                placeholder="Enter LinkedIn profile link"
                                                 className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
                                             />
 
                                             <span
                                                 className="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-gray-200"
                                             >
-                                                URL Profil LinkedIn
+                                                LinkedIn Profile URL
                                             </span>
                                         </Label>
                                         <ErrorMessage
@@ -399,6 +416,42 @@ const FormSubmit: React.FC = () => {
                                             component="div"
                                             className="mt-1 text-sm text-red-600"
                                         />
+                                    </div>
+                                    <div className="form-group">
+                                        <Label htmlFor="thumbnail" className="block text-sm font-medium text-gray-700 mb-4 dark:text-gray-200">
+                                            Url Path thumbnail
+                                        </Label>
+                                        <Field
+                                            type="text"
+                                            id="thumbnail"
+                                            name="path_image"
+                                            value={values.path_image || ''}
+                                            placeholder="Enter link path thumbnail ( minimum size 120x120 )"
+                                            className="mt-1 w-full px-[16px] py-[8px] rounded-md border-gray-200 shadow-sm sm:text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <Label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-4 dark:text-gray-200">
+                                            Type
+                                        </Label>
+                                        <Select
+                                            value={values.type}
+                                            onValueChange={(value) => setFieldValue("type", value)}
+
+                                        >
+                                            <SelectTrigger className="w-[240px] rounded-md border border-gray-200 px-3 py-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 dark:border-gray-700 dark:bg-gray-800">
+                                                <SelectValue placeholder="Select a type" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectGroup>
+                                                    <SelectItem value="Individual">Individual</SelectItem>
+                                                    <SelectItem value="Government Official">Government Official</SelectItem>
+                                                    <SelectItem value="Regional Official">Regional Official</SelectItem>
+                                                    <SelectItem value="Brand">Brand</SelectItem>
+                                                    <SelectItem value="Company">Company</SelectItem>
+                                                </SelectGroup>
+                                            </SelectContent>
+                                        </Select>
                                     </div>
                                 </div>
                                 <div className="flex justify-end mt-[32px]">
@@ -414,7 +467,7 @@ const FormSubmit: React.FC = () => {
                                     disabled={isSubmitting}
                                     onClick={submitForm}
                                     type="submit">
-                                    {isSubmitting ? 'Menyimpan...' : 'Simpan'}
+                                    {isSubmitting ? 'Saving...' : 'Save'}
                                 </Button>
                             </CardFooter>
                         </Form>

@@ -6,21 +6,7 @@ import { FaSquareFacebook, FaSquareInstagram, FaSquareXTwitter, FaLinkedin } fro
 import Link from 'next/link';
 import NoReview from "@/components/layouts/noReview";
 import { FaExternalLinkAlt } from "react-icons/fa";
-
-
-interface Comment {
-    id: number;
-    reviewer_name: string;
-    title_job: string;
-    comment: string;
-    rating: number;
-    created_at: string;
-    facebook_url: string;
-    twitter_url: string;
-    instagram_url: string;
-    linkedin_url: string;
-    link_url: string;
-}
+import { Comment } from "@/lib/types/listReview.types";
 
 interface ListReviewProps {
     reviews: Comment[];
@@ -61,7 +47,7 @@ const ListReview: React.FC<ListReviewProps> = ({ reviews }) => {
                             <div className="flex items-center justify-between mb-2">
                                 <div className="flex items-center">
                                     <div className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center">
-                                        <Avatar>
+                                        <Avatar className="w-10 h-10">
                                             <AvatarImage src={`https://avatar.iran.liara.run/username?username=${comment.reviewer_name}`} />
                                             <AvatarFallback>{comment.reviewer_name}</AvatarFallback>
                                         </Avatar>
@@ -79,7 +65,7 @@ const ListReview: React.FC<ListReviewProps> = ({ reviews }) => {
                             {
                                 comment.link_url && (
                                     <Link href={`${comment.link_url}`} className="text-[12px] flex flex-row items-center gap-[4px] text-red-500" target="_blank">
-                                        <span className="text-[14px]">Tautan</span>
+                                        <span className="text-[14px]">Link</span>
                                         <FaExternalLinkAlt />
                                     </Link>
                                 )
