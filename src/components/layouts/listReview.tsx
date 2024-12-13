@@ -64,7 +64,7 @@ const ListReview: React.FC<ListReviewProps> = ({ reviews }) => {
                             <p className="text-gray-300 mb-3">{comment.comment}</p>
                             {
                                 comment.link_url && (
-                                    <Link href={`${comment.link_url}`} className="text-[12px] flex flex-row items-center gap-[4px] text-red-500" target="_blank">
+                                    <Link href={`${comment.link_url}`} className="text-[12px] flex flex-row items-center gap-[4px] text-red-500 w-fit" target="_blank">
                                         <span className="text-[14px]">Link</span>
                                         <FaExternalLinkAlt />
                                     </Link>

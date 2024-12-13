@@ -29,6 +29,8 @@ const Result: React.FC= () => {
     const [reviews, setReviews] = useState<Comment[]>([]);
 
     const currentPageRef = useRef<number>(1);
+    const reviewsRef = useRef<any[]>([]);
+
     const router = useRouter();
 
     const params = useParams();
@@ -98,18 +100,19 @@ const Result: React.FC= () => {
         }
         if (data) {
             const newReviews = data.filter(review =>
-                !reviews.some(existingReview => existingReview.id === review.id)
+                !reviewsRef.current.some(existingReview => existingReview.id === review.id)
             );
-            setReviews([...reviews, ...newReviews]);
-            if (count !== null && reviews.length >= count) {
+            reviewsRef.current = [...reviewsRef.current, ...newReviews];
+            if (count !== null && reviewsRef.current.length >= count) {
                 setHasMore(false); // No more data to fetch
             }
         }
         setLoadingScroll(false);
     }
 
-    const handleReviewsUpdate = (newReview: Comment) => {
-        setReviews([...reviews, newReview]);
+    const handleReviewsUpdate = (newReview: any) => {
+        reviewsRef.current = [...reviewsRef.current, newReview];
+        console.log(reviewsRef.current);
     };
 
     useEffect(() => {
@@ -156,7 +159,6 @@ const Result: React.FC= () => {
         await fetchReviews();
     }
 
-
     if (loading) {
         return (
             <div className="h-screen w-full flex items-center justify-center">
@@ -164,6 +166,7 @@ const Result: React.FC= () => {
             </div>
         );
     }
+    
 
     return (
         <>
@@ -186,12 +189,12 @@ const Result: React.FC= () => {
                         )
                     }
                     <div className="mt-[32px]">
-                        <FormReview id={idUser} onReviewsUpdate={handleReviewsUpdate} onSubmitComponent={handleFormSubmit} setSwal={setSwal} />
+                        <FormReview id={idUser} onReviewsUpdate={handleReviewsUpdate} setSwal={setSwal} />
                     </div>
                     <div className="mt-[32px]">
                         <h2 className="mb-[16px] font-semibold text-3xl">What do people say?</h2>
                         {
-                            reviews && <ListReview reviews={reviews} />
+                          reviewsRef.current && <ListReview reviews={reviewsRef.current} />
                         }
                     </div>
                     {loadingScroll && <div className="text-center text-[#fafafa] font-semibold text-[16px] my-4">Loading more reviews...</div>}

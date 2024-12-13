@@ -46,7 +46,7 @@ export default function RootLayout({ children }: RootLayoutProps)  {
         className={`${quicksand.className} antialiased`}
         suppressHydrationWarning
       >
-        <div className="mx-auto relative min-h-screen">
+        <div className="mx-auto relative min-h-screen flex flex-col justify-between">
           <Provider>{children}</Provider>
           <Analytics />
         </div>

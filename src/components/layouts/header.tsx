@@ -1,11 +1,15 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
+import { useMediaQuery } from "@uidotdev/usehooks";
+import { FcKindle } from "react-icons/fc";
 
 
 const Header: React.FC = () => {
     const router = useRouter();
+    const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
 
     return (
         <>
@@ -27,8 +31,18 @@ const Header: React.FC = () => {
                                 onClick={() => router.push('/form')}
                                 className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2"
                             >
-                                
-                                <span>Suggest a Name</span>
+                                {
+                                    isSmallDevice ? (
+                                        <>
+                                            <FcKindle className="text-[22px]"/>
+                                        </>
+                                    ): (
+                                        <>
+                                            <span>Apply Now</span>
+                                        </>
+                                    )
+                                }
+                               
                             </HoverBorderGradient>                            
                             </div>
                         </div>

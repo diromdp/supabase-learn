@@ -120,7 +120,7 @@ export default function Home() {
 		setIsLoading(false);
 	};
 	return (
-		<main className="relative flex flex-col justify-center items-center min-h-screen">
+		<main className="relative flex flex-col justify-center items-center">
 			<section className="bg-black text-white w-full flex items-center justify-center">
 				<div className="mx-auto max-w-screen-xl px-4 py-12">
 					<div className="mx-auto max-w-2xl text-center">
