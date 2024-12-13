@@ -3,6 +3,8 @@ import "@/style/styles.scss";
 import { Quicksand } from 'next/font/google'
 import Provider from "@/components/layouts/provider";
 import 'react-toastify/dist/ReactToastify.css';
+import { Analytics } from '@vercel/analytics/next';
+ 
 
 
 export const metadata: Metadata = {
@@ -46,6 +48,7 @@ export default function RootLayout({ children }: RootLayoutProps)  {
       >
         <div className="mx-auto relative min-h-screen">
           <Provider>{children}</Provider>
+          <Analytics />
         </div>
       </body>
     </html>
