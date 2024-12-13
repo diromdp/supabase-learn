@@ -44,7 +44,7 @@ const CardPeople: React.FC<CardPeopleProps> = ({
 
                             <>
                                 <div className="flex flex-col md:flex-row gap-10 items-center justify-between">
-                                    <div className="flex flex-col justify-center items-center w-[180px] h-[130px] lg:w-[200px] lg:h-[150px]">
+                                    <div className="flex flex-col justify-center items-center w-[180px] h-[240px] lg:w-[200px] lg:h-[150px]">
                                         {
                                             path_image ? (
                                                 <img src={path_image} alt="Nama orang" className="w-full h-full object-cover rounded-[10px]" />
