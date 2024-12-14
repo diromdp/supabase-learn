@@ -350,7 +350,7 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                     <div className="form-group">
                                         <Label
                                             htmlFor="Name"
-                                            className="block text-sm font-medium text-gray-700 dark:text-gray-200"
+                                            className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200"
                                         >
                                            Full Name
                                         </Label>
@@ -371,7 +371,7 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                     <div className="form-group">
                                         <Label
                                             htmlFor="title_job"
-                                            className="block text-sm font-medium text-gray-700 dark:text-gray-200"
+                                            className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200"
                                         >
                                             Job Title
                                         </Label>
@@ -392,7 +392,7 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                     <div className="form-group">
                                         <Label
                                             htmlFor="Facebook"
-                                            className="block text-sm font-medium text-gray-700 dark:text-gray-200"
+                                            className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200"
                                         >
                                             Facebook Profile URL
                                         </Label>
@@ -413,7 +413,7 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                     <div className="form-group">
                                         <Label
                                             htmlFor="Twitter"
-                                            className="block text-sm font-medium text-gray-700 dark:text-gray-200"
+                                            className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200"
                                         >
                                             X (Twitter) Profile URL
                                         </Label>
@@ -435,7 +435,7 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                     <div className="form-group">
                                         <Label
                                             htmlFor="Instagram"
-                                            className="block text-sm font-medium text-gray-700 dark:text-gray-200"
+                                            className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200"
                                         >
                                             Instagram Profile URL
                                         </Label>
@@ -456,7 +456,7 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                     <div className="form-group">
                                         <Label
                                             htmlFor="Linkedin"
-                                            className="block text-sm font-medium text-gray-700 dark:text-gray-200"
+                                            className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200"
                                         >
                                             LinkedIn Profile URL
                                         </Label>
@@ -475,7 +475,7 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                         />
                                     </div>
                                     <div className="form-group">
-                                        <Label htmlFor="OrderNotes" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
+                                        <Label htmlFor="OrderNotes" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
                                             Comment
                                         </Label>
                                         <Field
@@ -493,7 +493,7 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                         />
                                     </div>
                                     <div className="form-group">
-                                        <Label htmlFor="url_link" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
+                                        <Label htmlFor="url_link" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-200">
                                             Link
                                         </Label>
 
@@ -501,7 +501,7 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                             type="text"
                                             id="url_link"
                                             name="link_url"
-                                            placeholder="Enter proof link (photo, video, or document)"
+                                            placeholder="Enter evidence links such as photos, videos or documents, social media posts. (Optional)"
                                             className="w-full px-[16px] py-[8px] rounded-md border-gray-200 shadow-sm sm:text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white"
                                         />
                                         <ErrorMessage
