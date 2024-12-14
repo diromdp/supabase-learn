@@ -61,14 +61,14 @@ const Result: React.FC= () => {
 
     const fetchData = async () => {
         const supabase = createClient();
-        const { data, error } = await supabase.from('person_identifications').select('*').eq('id', params.id);
+        const { data, error } = await supabase.from('person_identifications').select('*').eq('id', params.id).eq('is_approved', true);
         
         if (error || data.length === 0) {
             setLoading(false);
             setSwal({
                 show: true,
-                title: 'Informasi',
-                text: 'Data tidak ditemukan, Silahkan coba lagi!',
+                title: 'Information',
+                text: 'Data not found or is in the process of verification. Please try again!',
                 willClose: () => {
                     router.push('/');
                 }
