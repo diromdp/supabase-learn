@@ -31,8 +31,8 @@ const validationSchema = Yup.object().shape({
         .required('Name is required')
         .min(3, 'Name must be at least 3 characters'),
     phone_number: Yup.string()
-        .required('Phone number is required')
-        .matches(/^(\+62|62|0)8[1-9][0-9]{6,9}$/, 'Format nomor telepon tidak valid'),
+        .matches(/^(\+62|62|0)8[1-9][0-9]{6,9}$/, 'Format nomor telepon tidak valid')
+        .nullable(),
     facebook_url: Yup.string()
         .matches(/^(https?:\/\/)?(www\.)?facebook.com\/[A-Za-z0-9._-]+\/?$/, 'Facebook Url not valid')
         .nullable(),

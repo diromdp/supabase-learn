@@ -57,12 +57,12 @@ const CardPeople: React.FC<CardPeopleProps> = ({
                                     </div>
                                     <div className="flex flex-col relative w-full">
                                         {
-                                            (public_office && public_office !== 'Individual') && public_office !== 'Individual' && (
+                                            (public_office && public_office !== 'Individual') && (
                                                 <Badge className="text-left w-fit" variant="destructive">{public_office}</Badge>
                                             )
                                         }
                                         <div className="flex flex-col w-[80%] md:w-full">
-                                            <div className={`${public_office ? "mt-[20px]" : ""} mb-[8px] text-left`}>
+                                            <div className={`${public_office !== 'Individual' ? "mt-[20px]" : ""} mb-[8px] text-left`}>
                                                 <span className="text-[20px] font-[500] leading-5">Full Name: {name && name}</span>
                                             </div>
                                             {
