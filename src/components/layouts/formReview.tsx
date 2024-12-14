@@ -346,26 +346,22 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                 <CardDescription>Help the community by sharing your experience. Leave a review about the credibility of this person, company, artist, politician, or official based on your interactions.</CardDescription>
                             </CardHeader>
                             <CardContent>
-                                <div className="space-y-8">
+                                <div className="space-y-5">
                                     <div className="form-group">
                                         <Label
                                             htmlFor="Name"
-                                            className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 dark:border-gray-700 dark:bg-gray-800"
+                                            className="block text-sm font-medium text-gray-700 dark:text-gray-200"
                                         >
-                                            <Field
-                                                type="text"
-                                                name="reviewer_name"
-                                                id="Name"
-                                                value={values.reviewer_name || ''}
-                                                placeholder="Enter full name"
-                                                className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
-                                            />
-                                            <span
-                                                className="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-gray-200"
-                                            >
-                                                Full Name
-                                            </span>
+                                           Full Name
                                         </Label>
+                                        <Field
+                                            type="text"
+                                            name="reviewer_name"
+                                            id="Name"
+                                            value={values.reviewer_name || ''}
+                                            placeholder="Enter full name"
+                                            className="w-full px-[16px] py-[8px] rounded-md border-gray-200 shadow-sm sm:text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+                                        />
                                         <ErrorMessage
                                             name="reviewer_name"
                                             component="div"
@@ -375,22 +371,18 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                     <div className="form-group">
                                         <Label
                                             htmlFor="title_job"
-                                            className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 dark:border-gray-700 dark:bg-gray-800"
+                                            className="block text-sm font-medium text-gray-700 dark:text-gray-200"
                                         >
-                                            <Field
-                                                type="text"
-                                                name="title_job"
-                                                id="title_job"
-                                                value={values.title_job || ''}
-                                                placeholder="Enter job title"
-                                                className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
-                                            />
-                                            <span
-                                                className="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-gray-200"
-                                            >
-                                                Job Title
-                                            </span>
+                                            Job Title
                                         </Label>
+                                        <Field
+                                            type="text"
+                                            name="title_job"
+                                            id="title_job"
+                                            value={values.title_job || ''}
+                                            placeholder="Enter job title"
+                                            className="w-full px-[16px] py-[8px] rounded-md border-gray-200 shadow-sm sm:text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+                                        />
                                         <ErrorMessage
                                             name="title_job"
                                             component="div"
@@ -400,23 +392,18 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                     <div className="form-group">
                                         <Label
                                             htmlFor="Facebook"
-                                            className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 dark:border-gray-700 dark:bg-gray-800"
+                                            className="block text-sm font-medium text-gray-700 dark:text-gray-200"
                                         >
-                                            <Field
-                                                type="text"
-                                                id="Facebook"
-                                                name="facebook_url"
-                                                placeholder="Enter Facebook profile link"
-                                                value={values.facebook_url || ''}
-                                                className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
-                                            />
-
-                                            <span
-                                                className="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-gray-200"
-                                            >
-                                                Facebook Profile URL
-                                            </span>
+                                            Facebook Profile URL
                                         </Label>
+                                        <Field
+                                            type="text"
+                                            id="Facebook"
+                                            name="facebook_url"
+                                            placeholder="Example: https://www.facebook.com/username"
+                                            value={values.facebook_url || ''}
+                                            className="w-full px-[16px] py-[8px] rounded-md border-gray-200 shadow-sm sm:text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+                                        />
                                         <ErrorMessage
                                             name="facebook_url"
                                             component="div"
@@ -426,23 +413,19 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                     <div className="form-group">
                                         <Label
                                             htmlFor="Twitter"
-                                            className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 dark:border-gray-700 dark:bg-gray-800"
+                                            className="block text-sm font-medium text-gray-700 dark:text-gray-200"
                                         >
-                                            <Field
-                                                type="text"
-                                                id="Twitter"
-                                                name="twitter_url"
-                                                value={values.twitter_url || ''}
-                                                placeholder="Enter X (Twitter) profile link"
-                                                className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
-                                            />
-
-                                            <span
-                                                className="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-gray-200"
-                                            >
-                                                X (Twitter) Profile URL
-                                            </span>
+                                            X (Twitter) Profile URL
                                         </Label>
+                                        <Field
+                                            type="text"
+                                            id="Twitter"
+                                            name="twitter_url"
+                                            value={values.twitter_url || ''}
+                                            placeholder="Example: https://www.x.com/username"
+                                            className="w-full px-[16px] py-[8px] rounded-md border-gray-200 shadow-sm sm:text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+                                        />
+
                                         <ErrorMessage
                                             name="twitter_url"
                                             component="div"
@@ -452,23 +435,18 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                     <div className="form-group">
                                         <Label
                                             htmlFor="Instagram"
-                                            className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 dark:border-gray-700 dark:bg-gray-800"
+                                            className="block text-sm font-medium text-gray-700 dark:text-gray-200"
                                         >
-                                            <Field
-                                                type="text"
-                                                id="Instagram"
-                                                name="instagram_url"
-                                                value={values.instagram_url || ''}
-                                                placeholder="Enter Instagram profile link"
-                                                className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
-                                            />
-
-                                            <span
-                                                className="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-gray-200"
-                                            >
-                                                Instagram Profile URL
-                                            </span>
+                                            Instagram Profile URL
                                         </Label>
+                                        <Field
+                                            type="text"
+                                            id="Instagram"
+                                            name="instagram_url"
+                                            value={values.instagram_url || ''}
+                                            placeholder="Example: https://www.instagram.com/username"
+                                            className="w-full px-[16px] py-[8px] rounded-md border-gray-200 shadow-sm sm:text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+                                        />
                                         <ErrorMessage
                                             name="instagram_url"
                                             component="div"
@@ -478,23 +456,18 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                     <div className="form-group">
                                         <Label
                                             htmlFor="Linkedin"
-                                            className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 dark:border-gray-700 dark:bg-gray-800"
+                                            className="block text-sm font-medium text-gray-700 dark:text-gray-200"
                                         >
-                                            <Field
-                                                type="text"
-                                                id="Linkedin"
-                                                name="linkedin_url"
-                                                value={values.linkedin_url || ''}
-                                                placeholder="Enter LinkedIn profile link"
-                                                className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
-                                            />
-
-                                            <span
-                                                className="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-gray-200"
-                                            >
-                                                LinkedIn Profile URL
-                                            </span>
+                                            LinkedIn Profile URL
                                         </Label>
+                                        <Field
+                                            type="text"
+                                            id="Linkedin"
+                                            name="linkedin_url"
+                                            value={values.linkedin_url || ''}
+                                            placeholder="Example: https://www.linkedin.com/in/username"
+                                            className="w-full px-[16px] py-[8px] rounded-md border-gray-200 shadow-sm sm:text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+                                        />
                                         <ErrorMessage
                                             name="linkedin_url"
                                             component="div"
@@ -529,7 +502,7 @@ const FormReview: React.FC<FormReviewProps> = ({ id, onSubmitComponent, onReview
                                             id="url_link"
                                             name="link_url"
                                             placeholder="Enter proof link (photo, video, or document)"
-                                            className="mt-1 w-full px-[16px] py-[8px] rounded-md border-gray-200 shadow-sm sm:text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+                                            className="w-full px-[16px] py-[8px] rounded-md border-gray-200 shadow-sm sm:text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white"
                                         />
                                         <ErrorMessage
                                             name="link_url"

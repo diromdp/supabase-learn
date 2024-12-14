@@ -260,27 +260,22 @@ const FormSubmit: React.FC = () => {
                     {({ isSubmitting, submitForm, values, setFieldValue }) => (
                         <Form >
                             <CardContent>
-                                <div className="space-y-8">
+                                <div className="space-y-5">
                                     <div className="form-group">
                                         <Label
                                             htmlFor="full-name"
-                                            className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 dark:border-gray-700 dark:bg-gray-800"
+                                            className="block text-sm font-medium text-gray-700 mb-2 dark:text-gray-200"
                                         >
-                                            <Field
+                                            Name
+                                        </Label>
+                                        <Field
                                                 type="text"
                                                 id="full-name"
                                                 name="full_name"
                                                 value={values.full_name || ''}
                                                 placeholder="Enter name"
-                                                className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
+                                                className="w-full px-[16px] py-[8px] rounded-md border-gray-200 shadow-sm sm:text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white"
                                             />
-
-                                            <span
-                                                className="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-gray-200"
-                                            >
-                                                Name
-                                            </span>
-                                        </Label>
                                         <ErrorMessage
                                             name="full_name"
                                             component="div"
@@ -290,23 +285,18 @@ const FormSubmit: React.FC = () => {
                                     <div className="form-group">
                                         <Label
                                             htmlFor="phone-number"
-                                            className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 dark:border-gray-700 dark:bg-gray-800"
+                                            className="block text-sm font-medium text-gray-700 mb-2 dark:text-gray-200"
                                         >
-                                            <Field
-                                                type="text"
-                                                id="phone-number"
-                                                name="phone_number"
-                                                value={values.phone_number || ''}
-                                                placeholder="Enter phone number"
-                                                className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
-                                            />
-
-                                            <span
-                                                className="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-gray-200"
-                                            >
-                                                Phone Number / WhatsApp Number
-                                            </span>
+                                            Phone Number / WhatsApp Number
                                         </Label>
+                                        <Field
+                                            type="text"
+                                            id="phone-number"
+                                            name="phone_number"
+                                            value={values.phone_number || ''}
+                                            placeholder="Example: 081834459444"
+                                            className="w-full px-[16px] py-[8px] rounded-md border-gray-200 shadow-sm sm:text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+                                        />
                                         <ErrorMessage
                                             name="phone_number"
                                             component="div"
@@ -316,23 +306,18 @@ const FormSubmit: React.FC = () => {
                                     <div className="form-group">
                                         <Label
                                             htmlFor="facebook-url"
-                                            className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 dark:border-gray-700 dark:bg-gray-800"
+                                            className="block text-sm font-medium text-gray-700 mb-2 dark:text-gray-200"
                                         >
-                                            <Field
-                                                type="text"
-                                                id="facebook-url"
-                                                name="facebook_url"
-                                                value={values.facebook_url || ''}
-                                                placeholder="Enter Facebook profile link"
-                                                className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
-                                            />
-
-                                            <span
-                                                className="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-gray-200"
-                                            >
-                                                Facebook Profile URL
-                                            </span>
+                                            Facebook Profile URL
                                         </Label>
+                                        <Field
+                                            type="text"
+                                            id="facebook-url"
+                                            name="facebook_url"
+                                            value={values.facebook_url || ''}
+                                            placeholder="Example: https://www.facebook.com/username"
+                                            className="w-full px-[16px] py-[8px] rounded-md border-gray-200 shadow-sm sm:text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+                                        />
                                         <ErrorMessage
                                             name="facebook_url"
                                             component="div"
@@ -342,23 +327,18 @@ const FormSubmit: React.FC = () => {
                                     <div className="form-group">
                                         <Label
                                             htmlFor="instagram-url"
-                                            className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 dark:border-gray-700 dark:bg-gray-800"
+                                            className="block text-sm font-medium text-gray-700 mb-2 dark:text-gray-200"
                                         >
-                                            <Field
-                                                type="text"
-                                                id="instagram-url"
-                                                name="instagram_url"
-                                                value={values.instagram_url || ''}
-                                                placeholder="Enter Instagram profile link"
-                                                className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
-                                            />
-
-                                            <span
-                                                className="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-gray-200"
-                                            >
-                                                Instagram Profile URL
-                                            </span>
+                                            Instagram Profile URL
                                         </Label>
+                                        <Field
+                                            type="text"
+                                            id="instagram-url"
+                                            name="instagram_url"
+                                            value={values.instagram_url || ''}
+                                            placeholder="Example: https://www.instagram.com/username"
+                                            className="w-full px-[16px] py-[8px] rounded-md border-gray-200 shadow-sm sm:text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+                                        />
                                         <ErrorMessage
                                             name="instagram_url"
                                             component="div"
@@ -368,23 +348,18 @@ const FormSubmit: React.FC = () => {
                                     <div className="form-group">
                                         <Label
                                             htmlFor="twitter-url"
-                                            className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 dark:border-gray-700 dark:bg-gray-800"
+                                            className="block text-sm font-medium text-gray-700 mb-2 dark:text-gray-200"
                                         >
-                                            <Field
-                                                type="text"
-                                                id="twitter-url"
-                                                name="twitter_url"
-                                                value={values.twitter_url || ''}
-                                                placeholder="Enter X (Twitter) profile link"
-                                                className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
-                                            />
-
-                                            <span
-                                                className="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-gray-200"
-                                            >
-                                                X (Twitter) Profile URL
-                                            </span>
+                                            X (Twitter) Profile URL
                                         </Label>
+                                        <Field
+                                            type="text"
+                                            id="twitter-url"
+                                            name="twitter_url"
+                                            value={values.twitter_url || ''}
+                                            placeholder="Example: https://www.x.com/username"
+                                            className="w-full px-[16px] py-[8px] rounded-md border-gray-200 shadow-sm sm:text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+                                        />
                                         <ErrorMessage
                                             name="twitter_url"
                                             component="div"
@@ -394,23 +369,18 @@ const FormSubmit: React.FC = () => {
                                     <div className="form-group">
                                         <Label
                                             htmlFor="linkedin-url"
-                                            className="relative block overflow-hidden rounded-md border border-gray-200 px-3 pt-3 shadow-sm focus-within:border-blue-600 focus-within:ring-1 focus-within:ring-blue-600 dark:border-gray-700 dark:bg-gray-800"
+                                            className="block text-sm font-medium text-gray-700 mb-2 dark:text-gray-200"
                                         >
-                                            <Field
-                                                type="text"
-                                                id="linkedin-url"
-                                                name="linkedin_url"
-                                                value={values.linkedin_url || ''}
-                                                placeholder="Enter LinkedIn profile link"
-                                                className="peer h-8 w-full border-none bg-transparent p-0 placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 sm:text-sm dark:text-white"
-                                            />
-
-                                            <span
-                                                className="absolute start-3 top-3 -translate-y-1/2 text-xs text-gray-700 transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-3 peer-focus:text-xs dark:text-gray-200"
-                                            >
-                                                LinkedIn Profile URL
-                                            </span>
+                                            LinkedIn Profile URL
                                         </Label>
+                                        <Field
+                                            type="text"
+                                            id="linkedin-url"
+                                            name="linkedin_url"
+                                            value={values.linkedin_url || ''}
+                                            placeholder="Example: https://www.linkedin.com/id/username"
+                                            className="w-full px-[16px] py-[8px] rounded-md border-gray-200 shadow-sm sm:text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+                                        />
                                         <ErrorMessage
                                             name="linkedin_url"
                                             component="div"
@@ -418,7 +388,7 @@ const FormSubmit: React.FC = () => {
                                         />
                                     </div>
                                     <div className="form-group">
-                                        <Label htmlFor="thumbnail" className="block text-sm font-medium text-gray-700 mb-4 dark:text-gray-200">
+                                        <Label htmlFor="thumbnail" className="block text-sm font-medium text-gray-700 mb-2 dark:text-gray-200">
                                             Url Path thumbnail
                                         </Label>
                                         <Field
@@ -426,12 +396,12 @@ const FormSubmit: React.FC = () => {
                                             id="thumbnail"
                                             name="path_image"
                                             value={values.path_image || ''}
-                                            placeholder="Enter link path thumbnail ( minimum size 120x120 )"
-                                            className="mt-1 w-full px-[16px] py-[8px] rounded-md border-gray-200 shadow-sm sm:text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+                                            placeholder="Enter link path thumbnail minimum size 120x120. Example: https://i.pravatar.cc/150?img=3"
+                                            className="w-full px-[16px] py-[8px] rounded-md border-gray-200 shadow-sm sm:text-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white"
                                         />
                                     </div>
                                     <div className="form-group">
-                                        <Label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-4 dark:text-gray-200">
+                                        <Label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-2 dark:text-gray-200">
                                             Type
                                         </Label>
                                         <Select
