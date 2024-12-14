@@ -150,7 +150,7 @@ export default function Home() {
 						
 						{results.length > 0 && (
 							<div className="mt-20 mb-20 w-full relative z-10">
-								<div className="text-left">Terdapat {results.length} hasil</div>
+								<div className="text-left">Result {results.length} found</div>
 								<div className="mt-4 grid gap-4">
 									{results.map((result) => (
 										<div key={result.id} onClick={() => router.push(`/${result.id}`)} className="cursor-pointer">
