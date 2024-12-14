@@ -446,6 +446,8 @@ const FormSubmit: React.FC = () => {
                                                 <SelectGroup>
                                                     <SelectItem value="Individual">Individual</SelectItem>
                                                     <SelectItem value="Government Official">Government Official</SelectItem>
+                                                    <SelectItem value="Public Figure">Public Figure</SelectItem>
+                                                    <SelectItem value="Religion Figure">Religion Figure</SelectItem>
                                                     <SelectItem value="Regional Official">Regional Official</SelectItem>
                                                     <SelectItem value="Brand">Brand</SelectItem>
                                                     <SelectItem value="Company">Company</SelectItem>
