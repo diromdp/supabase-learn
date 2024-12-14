@@ -126,7 +126,7 @@ export default function Home() {
 					<div className="mx-auto max-w-2xl text-center">
 						<div className="flex flex-col">
 							<h1
-								className="bg-gradient-to-r max-w-xl mx-auto leading-[54px] from-green-300 via-blue-500 to-purple-600 bg-clip-text text-3xl font-extrabold text-transparent sm:text-5xl"
+								className="bg-gradient-to-r max-w-xl mx-auto leading-[34px] lg:leading-[54px] from-green-300 via-blue-500 to-purple-600 bg-clip-text text-3xl font-extrabold text-transparent sm:text-5xl"
 							>
 								Check Credibility Discover the Truth
 							</h1>
