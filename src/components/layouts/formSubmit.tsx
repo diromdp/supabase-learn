@@ -94,18 +94,18 @@ const FormSubmit: React.FC = () => {
             return 'An error occurred while checking the data';
         }
         if (data && data.length > 0) {
-            return 'The data already exists in the database';
+            return 'The data full_name already exists in the database';
         }
 
-        // Check phone_number next
-        ({ data, error } = await supabase.from('person_identifications').select('id').eq('phone_number', phone_number));
-        if (error) {
-            console.error("Error checking phone_number existence:", error);
-            return 'An error occurred while checking the data';
-        }
-        if (data && data.length > 0) {
-            return 'This entity\'s data already exists in our database';
-        }
+        // // Check phone_number next
+        // ({ data, error } = await supabase.from('person_identifications').select('id').eq('phone_number', phone_number));
+        // if (error) {
+        //     console.error("Error checking phone_number existence:", error);
+        //     return 'An error occurred while checking the data';
+        // }
+        // if (data && data.length > 0) {
+        //     return 'This entity\'s data already exists in our database';
+        // }
 
         ({ data, error } = await supabase.from('person_identifications').select('id').eq('facebook_url', facebook_url));
         if (error) {
@@ -114,7 +114,7 @@ const FormSubmit: React.FC = () => {
         }
         if (data && data.length > 0) {
             console.log('This entity\'s data already exists in our database');
-            return 'This entity\'s data already exists in our database';
+            return 'This entity\'s data facebook_url already exists in our database';
         }
 
         ({ data, error } = await supabase.from('person_identifications').select('id').eq('linkedin_url', linkedin_url));
@@ -123,7 +123,7 @@ const FormSubmit: React.FC = () => {
             return 'An error occurred while checking the data';
         }
         if (data && data.length > 0) {
-            return 'This entity\'s data already exists in our database';
+            return 'This entity\'s data linkedin_url already exists in our database';
         }
 
         ({ data, error } = await supabase.from('person_identifications').select('id').eq('instagram_url', instagram_url));
@@ -132,7 +132,7 @@ const FormSubmit: React.FC = () => {
             return 'An error occurred while checking the data';
         }
         if (data && data.length > 0) {
-            return 'This entity\'s data already exists in our database';
+            return 'This entity\'s data instagram_url already exists in our database';
         }
 
         ({ data, error } = await supabase.from('person_identifications').select('id').eq('twitter_url', twitter_url));
@@ -141,7 +141,7 @@ const FormSubmit: React.FC = () => {
             return 'An error occurred while checking the data';
         }
         if (data && data.length > 0) {
-            return 'This entity\'s data already exists in our database';
+            return 'This entity\'s data twitter_url already exists in our database';
         }
 
         return null;
